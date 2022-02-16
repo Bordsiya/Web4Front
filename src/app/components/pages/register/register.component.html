@@ -1,0 +1,41 @@
+<div *ngIf="isSignedUp; else signUpForm">
+    Your registration is successful. Please login!
+</div>
+
+<ng-template #signUpForm>
+    <div class="register_div">
+        <form [formGroup]="registerForm">
+            <div class="input_login">
+                <label for="login">Your login</label> <br/>
+                <input type="text" id="login" formControlName="login"/>
+                <div *ngIf="loginFromForm.touched">
+                    <div *ngIf="loginFromForm.errors?.['required']">
+                        <span class="error_msg">Login is required</span>
+                    </div>
+                </div>
+            </div>
+            <div class="input_password">
+                <label for="password">Password</label> <br/>
+                <input type="password" id="password" formControlName="password"/>
+
+                <div *ngIf="passwordFromForm.touched">
+                    <div *ngIf="passwordFromForm.errors?.['required']">
+                        <span class="error_msg">Password is required</span>
+                    </div>
+                    <div *ngIf="passwordFromForm.errors?.['minlength']">
+                        <span class="error_msg">Password must be at least 6 characters</span>
+                    </div>
+                    <div *ngIf="passwordFromForm.errors?.['maxlength']">
+                        <span class="error_msg">Password must be shorter than 19 characters</span>
+                    </div>
+                </div>
+            </div>
+            <div class="register_button_area">
+                <p-button (click)="onSubmit()" [disabled]="!registerForm.valid">Register</p-button>
+                <div *ngIf="isSignUpFailed">
+                    <span class="error_msg">Sign Up failed! {{errorMessage}}</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>

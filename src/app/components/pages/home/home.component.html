@@ -1,0 +1,86 @@
+<div class="main_container" *ngIf="info.token; else loggedOut">
+    <div>
+        <span>Hello, <span class="login_hello">{{info.login}}</span>! </span> <br/>
+    </div>
+    <br/>
+
+    <div class="input_container">
+        
+        <div class="input_form">
+            <form [formGroup]="pointForm">
+                <div class="input_x_main">
+                    <label for="x">X</label> <br/>
+                    <p-multiSelect id="x" class="input" [options]="xValues" formControlName="x"  defaultLabel="Укажите X"></p-multiSelect> <br/>
+                    <div class="error_area" *ngIf="xForm.touched">
+                        <span class="error_msg" *ngIf="xForm.errors?.['required']">X is required</span> 
+                    </div>      
+                </div>
+
+                <div class="input_y_main">
+                    <label for="y">Y (-5; 3)</label> <br/>
+                    <input id="y" type="number" formControlName="y"/>
+                    <div class="error_area" *ngIf="yForm.touched">
+                        <div *ngIf="yForm.errors?.['required']">
+                            <span class="error_msg">Y is required</span> 
+                        </div>
+                        <div *ngIf="yForm.errors?.['min']">
+                            <span class="error_msg">Y must be greater</span>
+                        </div>
+                        <div *ngIf="yForm.errors?.['max']">
+                            <span class="error_msg">Y must be lower</span>
+                        </div> 
+                        <div *ngIf="yForm.errors?.['maxlength']">
+                            <span class="error_msg">Y must be shorter</span>
+                        </div> 
+                    </div>
+                    
+                </div>
+
+                <div class="input_r_main"> 
+                    <label for="r">R</label> <br/>
+                    <p-multiSelect id="r" class="input"  [options]="rValues" formControlName="r" defaultLabel="Укажите R" (onChange)="changeR()"></p-multiSelect>
+                    <div class="error_area" *ngIf="rForm.touched">
+                        <div *ngIf="rForm.errors?.['required']">
+                            <span class="error_msg">R is required</span> 
+                        </div>
+                        <div *ngIf="istooManyRCanvasError">
+                            <span class="error_msg">Choose only one R option</span>
+                        </div>
+                        <div *ngIf="rForm.errors?.['invalidSelection']">
+                            <span class="error_msg">Selected R values must be positive</span>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="main_button_area">
+                    <p-button id="submit" (click)="submitDot(pointForm.value)" [disabled]="!pointForm.valid">Submit</p-button>
+                    <p-button id="clear" (click)="clearHits()">Clear dots</p-button>
+                </div>
+
+                <div class="error_area" *ngIf="isErrorSubmitting">
+                    <span class="error_msg">{{errorMessageSubmitting}}</span>
+                </div>
+            </form>
+        </div>
+
+        <div class="input_canvas">
+            <app-canvas [rVal]="canvasRadius" [size]="canvasSize" (onSubmit)="submitCanvasDot($event)" [hits]="$hits" 
+            [xArray]="xValues" [yMax]="yMax" [yMin]="yMin"></app-canvas>
+        </div>
+     
+    </div>
+
+    <div class="table_container">
+        <app-table [content]="$hits"></app-table>
+    </div>
+
+    <div class="button_container">
+        <p-button (click)="logout()">Logout</p-button>
+    </div>
+    
+</div>
+
+<ng-template #loggedOut>
+    <span>Please login</span>
+</ng-template>

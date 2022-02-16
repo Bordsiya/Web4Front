@@ -1,0 +1,44 @@
+<div *ngIf="isLoggedIn; else loggedOut">
+    <span>Logged in</span>
+</div>
+
+<ng-template #loggedOut>
+    <div class="login_div">
+        <form [formGroup]="loginForm">
+            <div class="input_login">
+                <label for="login">Login</label> <br/>
+                <input id="login" type="text" formControlName="login">
+            
+                <div *ngIf="loginFromForm.touched">
+                    <div *ngIf="loginFromForm.errors?.['required']">
+                        <span class="error_msg">Login is required</span>
+                    </div>
+                </div>
+            </div>
+            <div class="input_password">
+                <label for="password">Password</label> <br/>
+                <input id="password" type="password" formControlName="password"/>
+                <div *ngIf="passwordFromForm.touched">
+                    <div *ngIf="passwordFromForm.errors?.['required']">
+                        <span class="error_msg">Password is required</span>
+                    </div>
+                    <div *ngIf="passwordFromForm.errors?.['minlength']">
+                        <span class="error_msg">Password must be at least 6 characters</span>
+                    </div>
+                    <div *ngIf="passwordFromForm.errors?.['maxlength']">
+                        <span class="error_msg">Password must be shorter than 19 characters</span>
+                    </div>
+                </div>
+            </div>
+            <div class="login_button_area">
+                <p-button (click)="onSubmit()" [disabled]="!loginForm.valid">Login</p-button>
+                <div *ngIf="isLoginFailed">
+                    <span class="error_msg">Login failed! {{errorMessage}}</span>
+                </div>
+            </div>
+        </form>
+        <hr />
+        <span>Don't have an account?</span>
+        <a href="register">Sign Up</a>
+    </div>
+</ng-template>

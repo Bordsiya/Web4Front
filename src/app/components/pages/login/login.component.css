@@ -1,0 +1,33 @@
+.error_msg {
+    color: red;
+    font-size: smaller;
+}
+
+.login_div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.login_div > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+form > .input_login, form > .input_password, form > .login_button_area {
+    padding-top: 8px;
+    padding-bottom: 14px;
+}
+
+input {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.login_button_area > div {
+    margin-top: 12px;
+}
+
