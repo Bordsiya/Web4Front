@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito+Sans");
+
+.container {
+    font-family: 'Nunito Sans';
+    color: black;
+    font-size: 16px;
+
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+}
+
+.container > div {
+    padding: 1%;
+    width: 100%;
+}
+
+@media screen and (max-width: 792px) {
+    .container {
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+}
