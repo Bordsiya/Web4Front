@@ -1,0 +1,23 @@
+<p-table [value]="content">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>X</th>
+            <th>Y</th>
+            <th>R</th>
+            <th>IS HIT</th>
+            <th>TIME</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-hit>
+        <tr>
+            <td>{{hit.x}}</td>
+            <td>{{hit.y}}</td>
+            <td>{{hit.r}}</td>
+            <td>{{hit.hit}}</td>
+            <td>{{hit.time}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+  
+
